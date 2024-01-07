@@ -1,10 +1,21 @@
 version: '3'
+
 services:
   db:
-    image: mysql:5.7
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mariadb:latest
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=mysecretpassword
+      MYSQL_ROOT_PASSWORD: mysecretpassword
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  react-app:
+    build:
+      context: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp  # Adjust this path based on the location of your React app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
