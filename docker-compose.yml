@@ -3,8 +3,8 @@ version: '3'
 services:
   db:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp
+      dockerfile: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp/Dockerfile
     image: mariadb:latest
     ports:
       - "3306:3306"
@@ -15,7 +15,18 @@ services:
 
   react-app:
     build:
-      context: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp  # Adjust this path based on the location of your React app
-      dockerfile: Dockerfile
+      context: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp
+      dockerfile: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp/Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp:/usr/src/app
+
+  flask-app:
+    build:
+      context: /Users/sukritirai/Documents/GitHub/full_stack_homework/backend
+      dockerfile: /Users/sukritirai/Documents/GitHub/full_stack_homework/backend/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
