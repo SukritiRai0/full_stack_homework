@@ -1,14 +1,43 @@
 from flask import jsonify
 from app.models import Customer, Part, Revision, Trial, File
+from app import app, db
 
 @app.route('/api/customers')
 def get_customers():
+    print("Fetching customers from the database...")
     customers = Customer.query.all()
-    return jsonify([{'id': customer.id, 'name': customer.name} for customer in customers])
+    customer_data = []
 
-@app.route('/api/parts')
-def get_parts():
-    parts = Part.query.all()
-    return jsonify([{'id': part.id, 'name': part.name, 'customer_id': part.customer_id} for part in parts])
+    for customer in customers:
+        customer_info = {
+            'name': customer.name,
+            'parts': []
+        }
 
-# Add similar routes for revisions, trials, and files
+        for part in customer.parts:
+            part_info = {
+                'name': part.name,
+                'revisions': [],
+                'trials': []
+            }
+
+            for revision in part.revisions:
+                revision_info = {
+                    'name': revision.name,
+                    'files': [{'name': file.name} for file in revision.files]
+                }
+                part_info['revisions'].append(revision_info)
+
+            for trial in part.trials:
+                trial_info = {
+                    'name': trial.name,
+                    'files': [{'name': file.name} for file in trial.files]
+                }
+                part_info['trials'].append(trial_info)
+
+            customer_info['parts'].append(part_info)
+
+        customer_data.append(customer_info)
+
+    print("Customers fetched successfully.")
+    return jsonify(customer_data)

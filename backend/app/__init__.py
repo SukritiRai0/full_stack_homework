@@ -14,11 +14,12 @@ db = SQLAlchemy(app)
 @retry(OperationalError, delay=1, backoff=2, max_delay=16)
 def create_app():
     # Your existing code to create the Flask app and database connection
+    print("Creating Flask app and establishing database connection...")
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysecretpassword@db:3306/customers'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
     # Other configurations...
-
+    print("Flask app created and database connection established.")
     return app

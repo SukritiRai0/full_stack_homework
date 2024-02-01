@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FileTree from './FileTree';
-import fileTreeData from './fileTreeData'; // Adjust the path accordingly
 
 const App = () => {
+  const [fileTreeData, setFileTreeData] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/customers') // Fetch data from the backend API
+      .then(response => response.json())
+      .then(data => setFileTreeData(data))
+      .catch(error => console.error('Error fetching file tree data:', error));
+  }, []);
+
   return (
     <div>
       <h1>File Tree App</h1>
-      <FileTree data={fileTreeData.customers} />
+      {fileTreeData && <FileTree data={fileTreeData} />}
     </div>
   );
 };
