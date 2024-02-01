@@ -10,6 +10,12 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
+# Install Flask and Flask-SQLAlchemy
+RUN pip install Flask Flask-SQLAlchemy
+
+# Install the retry module
+RUN pip install retry
+
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
@@ -17,4 +23,4 @@ EXPOSE 5000
 ENV NAME World
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ["python", "run.py"]
