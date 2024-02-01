@@ -5,7 +5,7 @@ const App = () => {
   const [fileTreeData, setFileTreeData] = useState(null);
 
   useEffect(() => {
-    fetch('/api/customers') // Fetch data from the backend API
+    fetch('/api/customer') // Fetch data from the backend API
       .then(response => response.json())
       .then(data => setFileTreeData(data))
       .catch(error => console.error('Error fetching file tree data:', error));

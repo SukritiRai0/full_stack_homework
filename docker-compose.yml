@@ -4,7 +4,7 @@ services:
   db:
     build:
       context: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp
-      dockerfile: /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp/Dockerfile
+      dockerfile: /Users/sukritirai/Documents/GitHub/full_stack_homework/Dockerfile
     image: mariadb:latest
     ports:
       - "3306:3306"
@@ -21,6 +21,8 @@ services:
       - "3000:3000"
     volumes:
       - /Users/sukritirai/Documents/GitHub/full_stack_homework/myapp:/usr/src/app
+    depends_on:
+      - db
 
   flask-app:
     build:

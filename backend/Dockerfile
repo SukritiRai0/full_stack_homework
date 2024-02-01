@@ -16,6 +16,8 @@ RUN pip install Flask Flask-SQLAlchemy
 # Install the retry module
 RUN pip install retry
 
+RUN pip install cryptography
+
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
